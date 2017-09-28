@@ -12,17 +12,13 @@ namespace UdpBroadcastCapture
         // Use the network EGV5-DMU2 to capture from the local IoT devices
         private const int Port = 7000 ;
         //private static readonly IPAddress IpAddress = IPAddress.Parse("192.168.5.137"); 
-        private static readonly IPAddress IpAddress = IPAddress.Any;
         // Listen for activity on all network interfaces
         // https://msdn.microsoft.com/en-us/library/system.net.ipaddress.ipv6any.aspx
         static void Main()
         {
-           // int portAnyNumber = 14593;
-            IPEndPoint remoteEndPoint = new IPEndPoint(IPAddress.Any, 0);
-
-            using (UdpClient socket = new UdpClient(remoteEndPoint))
+            using (UdpClient socket = new UdpClient(new IPEndPoint(IPAddress.Any, Port)))
             {
-                socket.Client.Bind(new IPEndPoint(IPAddress.Any, Port));
+                IPEndPoint remoteEndPoint = new IPEndPoint(0, 0);
                 while (true)
                 {
                     Console.WriteLine("Waiting for broadcast {0}", socket.Client.LocalEndPoint);
